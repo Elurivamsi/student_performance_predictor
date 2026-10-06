@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Student Performance Predictor</title>
+<style>
+  body{font-family:Arial,sans-serif;background:#eef2f7;margin:0;padding:30px}
+  .card{max-width:460px;margin:auto;background:#fff;padding:28px;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.1)}
+  h1{font-size:22px;color:#1f3864;text-align:center;margin-top:0}
+  label{display:block;margin-top:12px;font-size:14px;color:#333}
+  input{width:100%;padding:9px;margin-top:4px;border:1px solid #bbb;border-radius:6px;box-sizing:border-box}
+  button{width:100%;margin-top:18px;padding:11px;background:#1f3864;color:#fff;border:0;border-radius:6px;font-size:16px;cursor:pointer}
+  .result{margin-top:20px;padding:14px;background:#e8f5e9;border-radius:8px;text-align:center}
+  .result b{font-size:26px;color:#2e7d32}
+  .error{margin-top:16px;padding:10px;background:#fdecea;color:#b71c1c;border-radius:6px}
+  ul{padding-left:20px;font-size:14px}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Student Performance Predictor</h1>
+  <form method="POST">
+    <label>Study hours per day (0-24)
+      <input name="study_hours" type="number" step="0.1" required></label>
+    <label>Attendance % (0-100)
+      <input name="attendance" type="number" step="0.1" required></label>
+    <label>Previous exam score (0-100)
+      <input name="previous_score" type="number" step="0.1" required></label>
+    <label>Assignments completed (0-10)
+      <input name="assignments" type="number" step="1" required></label>
+    <label>Sleep hours per day (0-24)
+      <input name="sleep_hours" type="number" step="0.1" required></label>
+    <button type="submit">Predict Score</button>
+  </form>
+  {% if error %}<div class="error">{{ error }}</div>{% endif %}
+  {% if result %}
+  <div class="result">
+    Predicted Final Score<br><b>{{ result.score }}</b> / 100 &nbsp; (Grade {{ result.grade }})
+    <ul style="text-align:left">{% for t in tips %}<li>{{ t }}</li>{% endfor %}</ul>
+  </div>
+  {% endif %}
+</div>
+</body>
+</html>
